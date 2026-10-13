@@ -223,11 +223,22 @@
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 0 18%;
+  justify-content: center;
+  padding: 0;
   pointer-events: none;
 }
+@media (min-width: 601px) {
+  .upload-options {
+    justify-content: center;
+    gap: 160px;
+    padding: 0;
+  }
 
+  .upload-option {
+    width: 180px;
+    flex: 0 0 180px;
+  }
+}
 .upload-option {
   border: none;
   background: transparent;
@@ -241,21 +252,22 @@
 }
 .upload-option {
   position: relative;
-  width: 340px;
+  flex: 1 1 50%;
+  width: 50%;
   height: 340px;
-  flex: 0 0 340px;
+  min-width: 0;
   display: block;
 }
 
 .upload-diamond {
   position: absolute;
-  width: 340px;
-  height: 340px;
+  width: 220px;
+  height: 220px;
   border: 2px dotted #a0a0a0;
-  transform: rotate(45deg);
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
+  translate: none;
+  transform: translate(-50%, -50%) rotate(45deg);
   pointer-events: none;
 }
 .upload-icon {
@@ -263,7 +275,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 64px;
+  font-size: 72px;
   line-height: 1;
   z-index: 2;
 }
@@ -274,8 +286,8 @@
   text-align: left;
 }
 .scan-text {
-  left: calc(50% + 85px);
-  top: calc(50% - 90px);
+  left: calc(50% + 110px);
+  top: calc(50% - 75px);
   transform: none;
   text-align: left;
 }
@@ -286,7 +298,13 @@
   border-radius: 50%;
   overflow: hidden;
 }
-
+.gallery-text {
+  right: calc(50% + 85px);
+  top: calc(50% + 65px);
+  left: auto;
+  transform: none;
+  text-align: right;
+}
 .gallery-dot {
   position: absolute;
   width: 14px;
@@ -763,8 +781,11 @@
 
 .confidence-circle {
   position: absolute;
-  right: 32px;
-  bottom: 24px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
   width: 220px;
   height: 220px;
   border: 2px solid #1a1b1c;
@@ -814,9 +835,14 @@
 /* Improvements for functional API results, accessible controls and smaller screens */
 .analysis-page { min-height: 100dvh; }
 .analysis-input { width: min(75vw, 390px); text-align: center; outline-offset: 6px; }
-.upload-option { width: 170px; height: 170px; flex: 0 0 170px; }
+.upload-option {
+  width: 50%;
+  height: 340px;
+  flex: 1 1 50%;
+  min-width: 0;
+}
 .upload-options {
-  gap: 160px;
+  gap: 220px;
   justify-content: center;
   padding: 0 20px;
 }
@@ -866,7 +892,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .analysis-input { width: 76vw; font-size: 25px; }
   .analysis-back { left: 18px; bottom: 20px; }
   .analysis-proceed { right: 18px; bottom: 20px; }
-  .upload-options { flex-direction: column; gap: 50px; padding: 110px 0 80px; overflow: visible; }
+  .upload-options { flex-direction: column; gap: 110px; padding: 110px 0 80px; overflow: visible; }
   .upload-option { width: 140px; height: 140px; flex-basis: 140px; }
   .upload-diamond { width: 140px; height: 140px; }
   .upload-text { font-size: 10px; }
@@ -903,9 +929,17 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 @keyframes skinstric-fade-up { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
 @keyframes skinstric-reveal { from { opacity: 0; scale: .94; } to { opacity: 1; scale: 1; } }
 @keyframes skinstric-diamond-enter { from { opacity: 0; transform: rotate(35deg) scale(.9); } to { opacity: 1; transform: rotate(45deg) scale(1); } }
-@keyframes skinstric-confidence-enter { from { opacity: .2; transform: scale(.88); } to { 
-  
-  opacity: 1; transform: scale(1); } }
+@keyframes skinstric-confidence-enter {
+  from {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 .landing-content h1, .landing-description, .analysis-prompt, .results-screen > h2, .results-screen > p, .demographics-screen > h2 { animation: skinstric-fade-up .75s ease-out both; }
 .analysis-diamond {
   animation: skinstric-diamond-enter .9s ease-out both;
@@ -931,6 +965,41 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 @media (max-width: 600px) {
   .analysis-page { min-height: 100dvh; overflow-x: clip; }
   .analysis-center { width: 100%; max-width: 100vw; }
+  @media (max-width: 600px) {
+  .upload-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .upload-diamond {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .upload-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .scan-text,
+  .gallery-text {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .scan-text {
+    top: calc(50% - 90px);
+  }
+
+  .gallery-text {
+    top: calc(50% + 65px);
+  }
+}
   /* Put the two image choices in their own rows instead of overflowing the viewport. */
   .upload-options { position: absolute; inset: 130px 0 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(35px, 7vh, 70px); padding: 0; }
   .upload-option { position: relative; flex: 0 0 145px; width: 145px; height: 145px; }
@@ -1013,6 +1082,24 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
   .gallery-text {
     right: calc(50% + 35px);
+  }
+}
+/* Keep camera and gallery labels aligned on mobile */
+@media (max-width: 600px) {
+  .scan-text {
+    left: 50%;
+    right: auto;
+    top: calc(50% - 75px);
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .gallery-text {
+    left: 50%;
+    right: auto;
+    top: calc(50% + 45px);
+    transform: translateX(-50%);
+    text-align: center;
   }
 }
 /* Demographics page entrance animation */
@@ -1108,4 +1195,110 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 .demographics-layout > :nth-child(3) {
   animation-delay: 1s !important;
+}
+/* Center camera and gallery inside mobile diamonds */
+@media (max-width: 600px) {
+  .upload-option {
+  display: block;
+}
+
+  .upload-diamond {
+    top: 50%;
+    left: 50%;
+    translate: none;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .upload-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .scan-text,
+  .gallery-text {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .scan-text {
+    top: calc(50% - 90px);
+  }
+/* Desktop: position labels outside the diamonds */
+@media (min-width: 601px) {
+  .upload-option {
+    position: relative;
+  }
+
+  .upload-option .scan-text {
+    position: absolute;
+    left: calc(50% + 85px);
+    right: auto;
+    top: calc(50% - 75px);
+    transform: none;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .upload-option .gallery-text {
+    position: absolute;
+    left: auto;
+    right: calc(50% + 85px);
+    top: calc(50% + 65px);
+    transform: none;
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+  .gallery-text {
+    top: calc(50% + 65px);
+  }
+}
+/* Center camera and gallery icons on mobile screens */
+@media (max-width: 600px) {
+  .upload-option .upload-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Desktop Camera label positioning */
+@media (min-width: 601px) {
+  .upload-option .scan-text {
+    position: absolute;
+    left: calc(100% + 24px);
+    right: auto;
+    top: calc(50% - 75px);
+    transform: none;
+    white-space: nowrap;
+    text-align: left;
+  }
+}
+/* Desktop Gallery label positioning */
+@media (min-width: 601px) {
+  .upload-option .gallery-text {
+    position: absolute;
+    right: calc(100% + 24px);
+    left: auto;
+    top: calc(50% + 65px);
+    transform: none;
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+/* Final desktop label alignment */
+@media (min-width: 601px) {
+  .upload-option .scan-text {
+    left: calc(50% + 145px);
+  }
+
+  .upload-option .gallery-text {
+    right: calc(100% - 240px);
+  }
 }
